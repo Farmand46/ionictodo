@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, reorderArray } from 'ionic-angular';
+import { NavController, AlertController, reorderArray, ToastController } from 'ionic-angular';
 import {TodoProvider} from "../../providers/todo/todo";
 import {ArchivedTodosPage} from "../archived-todos/archived-todos";
 @Component({
@@ -13,7 +13,7 @@ export class HomePage {
   // Til brug for det deklarative kald til det andet vindue
   public archivedTodosPage = ArchivedTodosPage;
 
-  constructor(private todoProvider: TodoProvider, public navCtrl: NavController, private alertController: AlertController) {
+  constructor(private toastController: ToastController, private todoProvider: TodoProvider, public navCtrl: NavController, private alertController: AlertController) {
     this.todos = this.todoProvider.getTodos();
 
   }
@@ -55,6 +55,14 @@ export class HomePage {
           todoText = inputData.addTodoInput;
           //this.todos.push(todoText);
           this.todoProvider.addTodo(todoText);
+
+          addTodoAlert.onDidDismiss(()=>{
+            let addTodoToast = this.toastController.create({
+              message: "Tilføjet Todo",
+              duration: 2000
+            });
+            addTodoToast.present();
+          });
         }
         }
       ]
