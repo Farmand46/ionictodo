@@ -16,13 +16,20 @@
 
 <ion-content padding>
   <ion-list [reorder]="reorderIsEnabled" (ionItemReorder)="itemReorder($event)">
-    <ion-item-sliding *ngFor="let todo of todos">
+    <ion-item-sliding *ngFor="let todo of todos; let todoIndex = index">
       <ion-item>{{todo}}</ion-item>
       <ion-item-options slide="right">
-        <button color="danger" ion-button>
+        <button color="danger" ion-button (click)="archiveTodo(todoIndex)">
           <ion-icon name="trash"></ion-icon>
         </button>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
+
+  <ion-fab right bottom>
+    <button ion-fab (click)="goToArchivePage()">
+    <!-- Deklarativt kald: <button ion-fab [navPush]=archivedTodosPage"> -->
+        <ion-icon name="archive"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>
