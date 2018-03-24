@@ -39,4 +39,8 @@ export class TodoProvider {
     this.todos.push(todo);
   }
 
+  editTodo(todo,todoIndex){
+    this.todos[todoIndex] = todo;
+  }
+
 }

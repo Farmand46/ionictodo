@@ -68,6 +68,43 @@ export class HomePage {
       ]
     });
     addTodoAlert.present();
+  }
+
+  editTodo(todoIndex){
+    let editTodoAlert = this.alertController.create({
+      title: "Ret Todo",
+      message: "Ret din Todo",
+      inputs:[
+        {
+          type: "text",
+          name: "addTodoInput",
+          value: this.todos[todoIndex]
+        }
+      ],
+      buttons: [
+        {
+          text: "Cancel"
+        },
+        {
+          text: "Gem Todo",
+          handler: (inputData)=>{
+          let todoText;
+          todoText = inputData.addTodoInput;
+          //this.todos.push(todoText);
+          this.todoProvider.editTodo(todoText,todoIndex);
+
+          editTodoAlert.onDidDismiss(()=>{
+            let editTodoToast = this.toastController.create({
+              message: "Todo er ændret",
+              duration: 2000
+            });
+            editTodoToast.present();
+          });
+        }
+        }
+      ]
+    });
+    editTodoAlert.present();
 
   }
 
